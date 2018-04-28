@@ -5,13 +5,16 @@ import os
 import random
 from PyDictionary import PyDictionary
 
-
-r = sr.Recognizer()
-with sr.Microphone() as source:
-    print("Say something!")
-    audio = r.listen(source)
-res=r.recognize_google(audio)
-print("You said: " + res)
+try:
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Say something!")
+        audio = r.listen(source)
+    res=r.recognize_google(audio)
+    print("You said: " + res)
+except:
+    functionset.sayout('sorry. I did not get you')
+    
 
 if 'hey' in res and 'siri' in res and 'do you know' not in res:
     functionset.sayout('who is siri')
