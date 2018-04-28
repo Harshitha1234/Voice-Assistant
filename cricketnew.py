@@ -127,5 +127,5 @@ team2=team2.replace(">","")
 output = team + "    "+  team1  + "    "+ "scored" + "    "+ score1  + "overs" + "       "+ team2 + "    " + "scored" + "     "+ score2
 
 tts = gTTS(text=output, lang='en-us')
-tts.save("hel.mp3")
-os.system("hel.mp3")
+tts.save("hell.mp3")
+os.system("mpg321 hel.mp3")

@@ -1,7 +1,4 @@
 
-
-
-
 import pymysql
 
 db=pymysql.connect("sql12.freemysqlhosting.net","sql12225454","ZhjfPu9eAU","sql12225454")
