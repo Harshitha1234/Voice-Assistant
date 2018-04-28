@@ -78,31 +78,42 @@ elif 'introduce' in res or 'introduction' in res:
     #tts.save("hel.mp3")
     #os.system("mpg321 hel.mp3")
 elif ('how old' in res and 'you' in res) or ('your age' in res and ('what is' in res or "what's" in res)) or ('when' in res and 'you' in res and 'born' in res):
-    tts = gTTS(text='technically ,as i dont have intelligence , i was never born and do not have an age', lang='en-us')
-    tts.save("hel.mp3")
-    os.system("mpg321 hel.mp3")
+    opt='what would you do with "my" age?'
+    functionset.sayout(opt)
+    #tts = gTTS(text='what would you do with "my" age?', lang='en-us')
+    #tts.save("hel.mp3")
+    #os.system("mpg321 hel.mp3")
 elif res=='Hey buddy' or res=='Hey' or res=='buddy':
-    tts = gTTS(text='hey! hi. what can i do for you?  ', lang='en-us')
-    tts.save("hel.mp3")
-    os.system("mpg321 hel.mp3")
+    opt = 'hey! hi. what can i do for you?'
+    functionset.sayout(opt)
+    #tts = gTTS(text='hey! hi. what can i do for you?  ', lang='en-us')
+    #tts.save("hel.mp3")
+    #os.system("mpg321 hel.mp3")
 elif 'language' in res and 'you' in res and 'speak' in res:
-    tts = gTTS(text='English for now', lang='en-us')
-    tts.save("hel.mp3")
-    os.system("mpg321 hel.mp3")
+    opt='English for now'
+    functionset.sayout(opt)
+    #tts = gTTS(text='English for now', lang='en-us')
+    #tts.save("hel.mp3")
+    #os.system("mpg321 hel.mp3")
 elif 'you' in res and 'like' in res and 'what' in res:
     option1=['I like talking with you','i am always interested in learning new things','Serving you gives me a great pleasure']
     opt=option1[random.randint(0,2)]
-    tts = gTTS(text=opt, lang='en-us')
-    tts.save("hel.mp3")
-    os.system("mpg321 hel.mp3")
+    functionset.sayout(opt)
+    #tts = gTTS(text=opt, lang='en-us')
+    #tts.save("hel.mp3")
+    #os.system("mpg321 hel.mp3")
 elif 'who' in res and 'are' in res and 'you' in res:
-    tts = gTTS(text='i am buddy! the voice assistant designed by alasya team', lang='en-us')
-    tts.save("hel.mp3")
-    os.system("mpg321 hel.mp3")
+    opt = 'i am buddy! the voice assistant designed by alasya team'
+    functionset.sayout(opt)
+    #tts = gTTS(text='i am buddy! the voice assistant designed by alasya team', lang='en-us')
+    #tts.save("hel.mp3")
+    #os.system("mpg321 hel.mp3")
 elif 'where' in res and 'are' in res and 'you' in res:
-    tts = gTTS(text='i am here! right in your computer.', lang='en-us')
-    tts.save("hel.mp3")
-    os.system("mpg321 hel.mp3")
+    opt = 'i am here! right in your computer.'
+    functionset.sayout(opt)
+    #tts = gTTS(text='i am here! right in your computer.', lang='en-us')
+    #tts.save("hel.mp3")
+    #os.system("mpg321 hel.mp3")
 elif 'meaning of' in res or 'mean' in res or 'means' in res or (len(res)==3 and 'what' in res and 'is' in res):
     res = functionset.genkeyw(res)
     res = res-{'hi','hello','meaning','mean','means','do','does'}
@@ -113,6 +124,8 @@ elif 'meaning of' in res or 'mean' in res or 'means' in res or (len(res)==3 and 
     print(dictionary.meaning(meaning))
 
 else:
-    tts = gTTS(text="sorry! i cannot do that", lang='en-us')
-    tts.save("hel.mp3")
-    os.system("mpg321 hel.mp3")
+    opt='sorry! i cannot do that'
+    functionset.sayout(opt)
+    #tts = gTTS(text="sorry! i cannot do that", lang='en-us')
+    #tts.save("hel.mp3")
+    #os.system("mpg321 hel.mp3")
