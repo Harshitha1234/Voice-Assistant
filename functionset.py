@@ -3,6 +3,10 @@ import re
 from gtts import gTTS
 import os
 
+def sayout(inp):
+    tts = gTTS(text=inp, lang='en-us')
+    tts.save("hel.mp3")
+    os.system("mpg321 hel.mp3")
 
 def genkeyw(text):
     keygen={'buddy','hey', 'who', 'where', 'with', "what's", 'of', 'for', 'at', 'want', 'to', 'me', 'can', 'what', 'when', 'why', 'is', 'am', 'on', 'it', 'if', 'a', 'an', 'the', 'in','are', 'were', 'now', 'my','how', 'you', 'your', 'i'}
