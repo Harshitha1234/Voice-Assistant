@@ -13,7 +13,30 @@ with sr.Microphone() as source:
 res=r.recognize_google(audio)
 print("You said: " + res)
 
-if 'weather' in res or 'temperature' in res or 'climate' in res or 'how hot' in res or 'how cold' in res:
+if 'hey' in res and 'siri' in res and 'do you know' not in res:
+    functionset.sayout('who is siri')
+    try:
+        r = sr.Recognizer()
+        with sr.Microphone() as source:
+            print("Say something!")
+            audio = r.listen(source)
+        res=r.recognize_google(audio)
+        print("You said: " + res)
+        functionset.sayout('who is that siri?')
+        try:
+            r = sr.Recognizer()
+            with sr.Microphone() as source:
+                print("Say something!")
+                audio = r.listen(source)
+            res=r.recognize_google(audio)
+            print("You said: " + res)
+            functionset.sayout('you better go and ask "siri"')
+         except:
+            functionset.sayout('you better go and ask "siri"')
+      except:
+        functionset.sayout('I am asking you who is "siri"')
+
+elif 'weather' in res or 'temperature' in res or 'climate' in res or 'how hot' in res or 'how cold' in res:
     res=functionset.genkeyw(res)
     res=res-{'temperature', 'climate', 'weather', 'hot', 'cold', 'hi', 'hello'}
     res=str(res)
