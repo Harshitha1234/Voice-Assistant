@@ -1,10 +1,10 @@
 import functionset
 import speech_recognition as sr
-from gtts import gTTS
-import os
 import random
 import PyDictionary
 from graphics import *
+import basicdb2
+
 
 win = GraphWin("buddy", 400, 600)
 win.setBackground(color_rgb(20, 15, 16))
@@ -151,6 +151,10 @@ while True:
         functionset.sayout('palying a ramdom track')
         functionset.playrandom()
         opt='playing a random track'
+    #elif ('tell' in res or 'say' in res) and ('fact' in res or 'interesting fact' in res):
+        #opt = functionset.ask_a_riddle()
+    #elif 'riddle' in res and ('ask' in res or 'tell' in res):
+        #opt = functionset.ask_a_riddle()
     elif ('videos' in res and 'show' in res) or (('show' in res or 'open' in res or 'play' in res or 'search for' in res) and 'YouTube' in res):
         res = functionset.genkeyw(res)
         res = res - {'YouTube','me','video','videos','in','on','of','some','about','open','play'}
@@ -167,6 +171,8 @@ while True:
         dictionary = PyDictionary()
         x = dictionary.meaning(meaning)
         print(x)
+    elif 'start' in res and 'chat' in res:
+        basicdb2.main()
     elif 'which' in res or 'what' in res or 'who' in res or 'why' in res or 'where' in res or 'can you tell me' in res or 'when' in res:
         functionset.sayout('here are something what I found')
         opt='here are something what    I found'

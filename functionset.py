@@ -8,6 +8,10 @@ import webbrowser
 from os import listdir
 from os.path import isfile, join
 import random
+import speech_recognition as sr
+
+riddles=['what can you never eat during the lunch or supper','give me food and i will live give me water and i will die.what am I','what is full of holes but can still hold water','everyone is attracted to me and everybody falls for me.what am I','what gets wetter the longer it is left out in the sun' ]
+
 
 def sayout(inp):
     tts = gTTS(text=inp, lang='en-us')
@@ -21,6 +25,97 @@ def genkeyw(text):
     s=s-keygen
     print(s)
     return s
+
+def ask_a_riddle():
+    a=random.randint(0,4)
+    tts = gTTS(text=riddles[a],lang='en-us')
+    tts.save("hel.mp3")
+    os.system("mpg321 hel.mp3")
+    print(riddles[a])
+
+    ans = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Say something!")
+        audio = ans.listen(source)
+    print("You said: " + ans.recognize_google(audio))
+    answer = ans.recognize_google(audio)
+    if(a==0):
+        if(answer=='breakfast'):
+            print('correct,you won')
+            opt='correct,you won'
+            tts = gTTS(text='correct,you won', lang='en-us')
+            tts.save("hel.mp3")
+            os.system("mpg321 hel.mp3")
+            return opt
+        else:
+            print('sorry,you lost')
+            opt='sorry,you lost the answer is breakfast'
+            tts = gTTS(text='sorry,you lost the answer is breakfast', lang='en-us')
+            tts.save("hel.mp3")
+            os.system("mpg321 hel.mp3")
+            return opt
+    if (a == 1):
+        if (answer == 'fire'):
+            print('correct,you won')
+            opt = 'correct,you won'
+            tts = gTTS(text='correct,you won', lang='en-us')
+            tts.save("hel.mp3")
+            os.system("mpg321 hel.mp3")
+            return opt
+        else:
+            print('sorry,you lost')
+            opt='sorry,you lost,the answer is fire'
+            tts = gTTS(text='sorry,you lost,the answer is fire', lang='en-us')
+            tts.save("hel.mp3")
+            os.system("mpg321 hel.mp3")
+            return opt
+    if (a == 2):
+        if (answer == 'sponge'):
+            print('correct,you won')
+            opt='correct,you won'
+            tts = gTTS(text='correct,you won', lang='en-us')
+            tts.save("hel.mp3")
+            os.system("mpg321 hel.mp3")
+            return opt
+        else:
+            print('sorry,you lost')
+            tts = gTTS(text='sorry,you lost,the answer is sponge', lang='en-us')
+            opt='sorry,you lost,the answer is sponge'
+            tts.save("hel.mp3")
+            os.system("mpg321 hel.mp3")
+            return opt
+    if (a == 3):
+        if (answer == 'Gravity'):
+            print('correct,you won')
+            opt='correct,you won'
+            tts = gTTS(text='correct,you won', lang='en-us')
+            tts.save("hel.mp3")
+            os.system("mpg321 hel.mp3")
+            return opt
+        else:
+            print('sorry,you lost')
+            opt='sorry,you lost,the answer is gravity'
+            tts = gTTS(text='sorry,you lost,the answer is gravity', lang='en-us')
+            tts.save("hel.mp3")
+            os.system("mpg321 hel.mp3")
+            return opt
+    if (a == 4):
+        if (answer == 'ice'):
+            print('correct,you won')
+            opt='correct,you won'
+            tts = gTTS(text='correct,you won', lang='en-us')
+            tts.save("hel.mp3")
+            os.system("mpg321 hel.mp3")
+            return opt
+        else:
+            print('sorry,you lost')
+            opt='sorry,you lost,the answer is ice'
+            tts = gTTS(text='sorry,you lost,the answer is ice', lang='en-us')
+            tts.save("hel.mp3")
+            os.system("mpg321 hel.mp3")
+            return opt
+
+
 
 def time():
     s = strftime('%H%M')
