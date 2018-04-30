@@ -52,6 +52,10 @@ def playrandom():
     path='/Users/ambatianirudh/Desktop/music/'+ str(songs[a])
     os.system("mpg321 "+path)
 
+def googleit(res):
+    link = "https://www.google.co.in/search?q=" + res
+    new = 2
+    webbrowser.open(link, new=new)
 
 def sayweather(address):
     api_key = "AIzaSyC-PM-difZHAVazccuVY0jymsI-sgvugqg"

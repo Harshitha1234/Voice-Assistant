@@ -122,7 +122,7 @@ while True:
         opt = 'i was made by the alasya group as a part of their ITWS2 software project'
         functionset.sayout(opt)
     elif 'introduce' in res or 'introduction' in res:
-        opt = 'hello! i am the voice assistant created by alasya group. you can call me "buddy". here are the things i can do. i can set alarms, remainder, create a shopping list or a to-do list for you, help chat with your friend, tell stories, play music , tell you the weather conditions, search for the prices of goods on flipkart, play a game ,tell a joke, tell the news,and i can ask some riddles too '
+        opt = 'hello! i am the voice assistant created by alasya group. you can call me "buddy". here are the things i can do. i can create a shopping list or a to-do list for you, help chat with your friend, tell stories, play music , tell you the weather conditions, search for the prices of goods on flipkart, play a game ,tell a joke, tell the news,and i can ask some riddles too '
         functionset.sayout(opt)
     elif ('how old' in res and 'you' in res) or ('your age' in res and ('what is' in res or "what's" in res)) or (
             'when' in res and 'you' in res and 'born' in res):
@@ -167,6 +167,10 @@ while True:
         dictionary = PyDictionary()
         x = dictionary.meaning(meaning)
         print(x)
+    elif 'which' in res or 'what' in res or 'who' in res or 'why' in res or 'where' in res or 'can you tell me' in res or 'when' in res:
+        functionset.sayout('here are something what I found')
+        opt='here are something what    I found'
+        functionset.googleit(res)
     elif res=='' :
         l = [exception] + l
         opt=''
@@ -196,8 +200,8 @@ while True:
     for i in range(0, 10):
         if(len(p[i])>30):
             q=p[i].split(' ')
-            print(q)
-            print(len(q))
+            #print(q)
+            #print(len(q))
             r=["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""]
             for j in range(len(q)-1,-1,-1):
                 r[int(j/4)]=q[j]+" "+r[int(j/4)]
@@ -214,7 +218,6 @@ while True:
             inp.setTextColor(color_rgb(40,125,200))
             inp.draw(win)
             y = y - 50
-        print(i)
         inp = Text(Point(x, y), l[i])
         inp.setSize(22)
         inp.setTextColor(color_rgb(40,125,0))
