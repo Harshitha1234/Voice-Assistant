@@ -3,6 +3,7 @@ import speech_recognition as sr
 from gtts import gTTS
 import os
 import random
+import PyDictionary
 
 try:
     r = sr.Recognizer()
@@ -15,8 +16,8 @@ except:
     functionset.sayout('sorry. I did not get you')
     
 
-if 'hey' in res and 'siri' in res and 'do you know' not in res:
-    functionset.sayout('who is siri')
+if 'hey' in res and 'Siri' in res:
+    functionset.sayout('who is siri?')
     try:
         r = sr.Recognizer()
         with sr.Microphone() as source:
@@ -32,16 +33,38 @@ if 'hey' in res and 'siri' in res and 'do you know' not in res:
                 audio = r.listen(source)
             res=r.recognize_google(audio)
             print("You said: " + res)
-            functionset.sayout('you better go and ask "siri"')
-         except:
-            functionset.sayout('you better go and ask "siri"')
-      except:
+            functionset.sayout('you better go and ask "siri". bye')
+        except:
+            functionset.sayout('you better go and ask "siri". bye')
+    except:
         functionset.sayout('I am asking you who is "siri"')
-
+        try:
+            r = sr.Recognizer()
+            with sr.Microphone() as source:
+                print("Say something!")
+                audio = r.listen(source)
+            res = r.recognize_google(audio)
+            print("You said: " + res)
+            functionset.sayout('who is that siri?')
+            try:
+                r = sr.Recognizer()
+                with sr.Microphone() as source:
+                    print("Say something!")
+                    audio = r.listen(source)
+                res = r.recognize_google(audio)
+                print("You said: " + res)
+                functionset.sayout('you better go and ask "siri". bye')
+            except:
+                functionset.sayout('you better go and ask "siri". bye')
+        except:
+            functionset.sayout('bye!')
 elif 'weather' in res or 'temperature' in res or 'climate' in res or 'how hot' in res or 'how cold' in res:
     res=functionset.genkeyw(res)
-    res=res-{'temperature', 'climate', 'weather', 'hot', 'cold', 'hi', 'hello'}
+    res=res-{'temperature', 'climate', 'weather', 'hot', 'cold', 'hi', 'hello','here'}
+    if len(res)==0:
+        res='sri city'
     res=str(res)
+    print(res)
     functionset.sayweather(res)
 elif 'price' in res or 'rate' in res or 'how much' in res or 'cost' in res or 'costs' in res:
     res=functionset.genkeyw(res)
@@ -54,9 +77,6 @@ elif res=='hello' or res=='hi' or res=='hello buddy' or res=='hi buddy':
     option2=['hi','hello dear', 'hello', 'namaste', 'namaskaar']
     opt=option2[random.randint(0,4)]
     functionset.sayout(opt)
-    #tts = gTTS(text=opt, lang='en-us')
-    #tts.save("hel.mp3")
-    #os.system("mpg321 hel.mp3")
     print(opt)
 elif 'how do you do' in res:
     opt='how do you do?'
@@ -73,13 +93,13 @@ elif 'what' in res and 'you' in res and ('doing' in res or 'feeling' in res):
     #os.system("mpg321 hel.mp3")
 elif 'how are you' in res:
     option1=['i am great. thanks for asking','i am having a great day. thanks for asking']
-    opt=option1[random.randint(0,2)]
+    opt=option1[random.randint(0,1)]
     functionset.sayout(opt)
     #tts = gTTS(text='i am great. thanks for asking' or 'i am having a great day. thanks for asking', lang='en-us')
     #tts.save("hel.mp3")
     #os.system("mpg321 hel.mp3")
 elif 'I' in res and ('bored' in res or 'bore' in res):
-    opt='I am bored too. shall we play a game?'
+    opt='I am bored too. Shall we play a game?'
     functionset.sayout(opt)
     #tts = gTTS(text='here are the things i can do for you. play a game ,tell a joke, tell the news,and i can ask some riddles too', lang='en-us')
     #tts.save("hel.mp3")
@@ -108,7 +128,7 @@ elif ('how old' in res and 'you' in res) or ('your age' in res and ('what is' in
     #tts = gTTS(text='what would you do with "my" age?', lang='en-us')
     #tts.save("hel.mp3")
     #os.system("mpg321 hel.mp3")
-elif res=='Hey buddy' or res=='Hey' or res=='buddy':
+elif res=='Hey buddy' or res=='hey' or res=='buddy':
     opt = 'hey! hi. what can i do for you?'
     functionset.sayout(opt)
     #tts = gTTS(text='hey! hi. what can i do for you?  ', lang='en-us')
@@ -134,16 +154,7 @@ elif 'who' in res and 'are' in res and 'you' in res:
     #tts.save("hel.mp3")
     #os.system("mpg321 hel.mp3")
 elif 'where' in res and 'are' in res and 'you' in res:
-<<<<<<< HEAD
-    tts = gTTS(text='i am here! right in your computer.', lang='en-us')
-    tts.save("hel.mp3")
-    os.system("mpg321 hel.mp3")
-else:
-    tts = gTTS(text="sorry! i cannot do that", lang='en-us')
-    tts.save("hel.mp3")
-    os.system("mpg321 hel.mp3")
-=======
-    opt = 'i am here! right in your computer.'
+    opt = 'i am here! right in front of you.'
     functionset.sayout(opt)
     #tts = gTTS(text='i am here! right in your computer.', lang='en-us')
     #tts.save("hel.mp3")
@@ -154,13 +165,12 @@ elif 'meaning of' in res or 'mean' in res or 'means' in res or (len(res)==3 and 
     meaning = str(res)
     meaning = meaning[2:-2]
     print(meaning)
-    dictionary = PyDictionary()
-    print(dictionary.meaning(meaning))
-
+    dictionary=PyDictionary()
+    x = dictionary.meaning(meaning)
+    print(x)
 else:
     opt='sorry! i cannot do that'
     functionset.sayout(opt)
     #tts = gTTS(text="sorry! i cannot do that", lang='en-us')
     #tts.save("hel.mp3")
     #os.system("mpg321 hel.mp3")
->>>>>>> b53be9b5feca268fd595fe34267b49834d99e5ee

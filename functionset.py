@@ -2,6 +2,12 @@ import requests
 import re
 from gtts import gTTS
 import os
+from datetime import datetime
+from time import gmtime,strftime
+import webbrowser
+from os import listdir
+from os.path import isfile, join
+import random
 
 def sayout(inp):
     tts = gTTS(text=inp, lang='en-us')
@@ -15,6 +21,37 @@ def genkeyw(text):
     s=s-keygen
     print(s)
     return s
+
+def time():
+    s = strftime('%H%M')
+    re=datetime.strptime(s,'%H%M').strftime('%I:%M%p')
+    tts = gTTS(text=re, lang='en-us')
+    tts.save("hel.mp3")
+    os.system("mpg321 hel.mp3")
+    return re
+
+def date():
+    re=strftime('%d')
+    ra=strftime('%B')
+    tts = gTTS(text=re+'th'+ra, lang='en-us')
+    tts.save("hel.mp3")
+    os.system("mpg321 hel.mp3")
+    return re
+
+def day():
+    re=strftime('%A')
+    tts = gTTS(text=re, lang='en-us')
+    tts.save("hel.mp3")
+    os.system("mpg321 hel.mp3")
+    return re
+
+def playrandom():
+    songs = [f for f in listdir('/Users/ambatianirudh/Desktop/music') if isfile(join('/Users/ambatianirudh/Desktop/music', f))]
+    print(songs)
+    a = random.randint(0, 12)
+    path='/Users/ambatianirudh/Desktop/music/'+ str(songs[a])
+    os.system("mpg321 "+path)
+
 
 def sayweather(address):
     api_key = "AIzaSyC-PM-difZHAVazccuVY0jymsI-sgvugqg"
@@ -43,14 +80,99 @@ def sayweather(address):
             break
         temp = temp + f.text[b + i]
 
-    output = "the temperature at " + address + "is" + temp + " degree centigrade"
+    output = "the temperature at " + address + " is " + temp + " degree centigrade"
     print(temp + " degree centigrade")
 
     tts = gTTS(text=output, lang='en-us')
     tts.save("hel.mp3")
     os.system("mpg321 hel.mp3")
+    return output
+
+def youtube(res):
+    link = "https://www.youtube.com/results?search_query=" + res
+    new = 2
+    webbrowser.open(link, new=new)
+    f = requests.get(link)
 
 
+def gettrains(a):
+    a = a.replace("coromandal express", "12841")
+    a = a.replace("godavari express", "12727")
+    a = a.replace("charminar express", "12759")
+    a = a.replace("chennai express", "12604")
+    a = a.replace("tungabhadra express", "17024")
+    a = a.replace("duronto express", "12285")
+    a = a.replace("rajdhani express", "12437")
+    a = a.replace("hyderabad express", "12603")
+    a = a.replace("bangalore express ", "06514")
+    a = a.replace("falknuma express", "12703")
+    a = a.replace("konark express", "11020")
+    a = a.replace("prasanthi express", "18464")
+    a = a.replace("circar express", "17643")
+    a = a.replace("visakha express", "17015")
+
+    link = "https://erail.in/train-running-status/" + a
+    new = 2
+    f = requests.get(link)
+    c = f.text
+    d = c.find("description")
+    train = ""
+    for i in range(d + 22, 10000):
+        if f.text[i] == '.':
+            break
+
+        train = train + f.text[i]
+    print(train)
+    tts = gTTS(text=train, lang='en-us')
+    tts.save("hel.mp3")
+    os.system("hel.mp3")
+    return a
+
+
+def gettrainsbetween(a,b):
+    a = a.replace("bangalore", "ksr-bengaluru-SBC")
+    a = a.replace("bengaluru", "ksr-bengaluru-SBC")
+    a = a.replace("chennai", "chennai-central-MAS")
+    a = a.replace("secunderabad" or "sc", "secunderabad-jn-SC")
+    a = a.replace("delhi", "delhi-DLI")
+    a = a.replace("hyderabad" or "hyd", "secunderabad-jn-SC")
+    a = a.replace("sullurupeta" or "spe", "sullurupeta-SPE")
+    a = a.replace("tada", "tada-TADA")
+    a = a.replace("visakhapatnam" or "vskp", "visakhapatnam-VSKP")
+    a = a.replace("vijayawada" or "bza", "vijayawada-jn-BZA")
+    a = a.replace("mumbai", "mumbai-central-BCT")
+
+    b = b.replace("bangalore", "ksr-bengaluru-SBC")
+    b = b.replace("bengaluru", "ksr-bengaluru-SBC")
+    b = b.replace("chennai", "chennai-central-MAS")
+    b = b.replace("secunderabad" or "sc", "secunderabad-jn-SC")
+    b = b.replace("delhi", "delhi-DLI")
+    b = b.replace("hyderabad" or "hyd", "secunderabad-jn-SC")
+    b = b.replace("sullurupeta" or "spe", "sullurupeta-SPE")
+    b = b.replace("tada", "tada-TADA")
+    b = b.replace("visakhapatnam" or "vskp", "visakhapatnam-VSKP")
+    b = b.replace("vijayawada" or "bza", "vijayawada-jn-BZA")
+    b = b.replace("mumbai", "mumbai-central-BCT")
+
+    link = "https://erail.in/trains-between-stations/" + a + "/" + b
+    new = 2
+
+    f = requests.get(link)
+
+    print(f.text)
+    c = f.text
+    d = c.find("<title>")
+    train = ""
+    for i in range(d + 8, 1000):
+        if f.text[i] == '-':
+            break
+        train = train + f.text[i]
+    print(train)
+
+    tts = gTTS(text=train, lang='en-us')
+    tts.save("hel.mp3")
+    os.system("hel.mp3")
+    return train
 
 def saynews():
     link = "https://news.google.com/news/?ned=in&gl=IN&hl=en-IN"
@@ -61,11 +183,10 @@ def saynews():
     b = a.find('jsname="NV4Anc" role="heading" aria-level="2"')
 
     regex = r'jsname="NV4Anc" role="heading" aria-level="2"(.+?)<'
-    # line = "President [P] Barack Obama [/P] met Microsoft founder [P] Bill Gates [/P], yesterday."
     newslist = re.findall(regex, a)
     print(newslist)
     newsfin = ''
-    for i in range(0, 5):
+    for i in range(0, 2):
         newstr = newslist[i].replace(">", "")
         newstr2 = newstr.replace("&#39;", "'")
         newsfin = newsfin + '     ;' + newstr2
@@ -73,6 +194,125 @@ def saynews():
     tts = gTTS(text=newsfin, lang='en-us')
     tts.save("hel.mp3")
     os.system("mpg321 hel.mp3")
+    return newsfin
+
+
+def saycricket():
+    link = "http://www.cricbuzz.com/"
+    new = 2
+    f = requests.get(link)
+
+    a = f.text
+    b = a.find('cb-col cb-col-25 cb-mtch-blk')
+    c = a.find('"_self" class="cb-font-12"><div class="cb-hmscg-bat-txt cb-ovr-flo ">')
+    d = a.find('/div></div><div class="cb-hmscg-bwl-txt')
+    team = ""
+    for i in range(40, 100):
+        if f.text[b + i] == '"':
+            break
+        team = team + f.text[b + i]
+
+    print(team)
+    team1 = ""
+    for i in range(108, 150):
+        if f.text[c + i] == '<':
+            break
+        team1 = team1 + f.text[c + i]
+    print(team1)
+
+    score1 = ""
+    for i in range(183, 800):
+        if f.text[c + i] == '<' or f.text[c + i] == 'O':
+            break
+        score1 = score1 + f.text[c + i]
+    print(score1)
+
+    team2 = ""
+    for i in range(81, 800):
+        if f.text[d + i] == '<':
+            break
+        team2 = team2 + f.text[d + i]
+    print(team2)
+
+    score2 = ""
+    for i in range(155, 800):
+        if f.text[d + i] == '<':
+            break
+        score2 = score2 + f.text[d + i]
+    print(score2)
+    if team1 == "RSA":
+        team1 = "southafrica"
+    if team1 == "AUS":
+        team1 = "australia"
+    if team1 == "BAN":
+        team1 = "bangladesh"
+    if team1 == "SL":
+        team1 = "srilanka"
+    if team1 == "NZ":
+        team1 = "new zealand"
+    if team1 == "ENG":
+        team1 = "england"
+    if team1 == "ZIM":
+        team1 = "zimbabwe"
+    if team1 == "IRE":
+        team1 = "ireland"
+    if team1 == "WI":
+        team1 = "west indies"
+    if team1 == "AUS":
+        team1 = "australia"
+    if team1 == "PAK":
+        team1 = "pakistan"
+    if team1 == "AFG":
+        team1 = "afghanistan"
+    if team1 == "IND":
+        team1 = "india"
+
+    if team2 == "RSA":
+        team2 = "south africa"
+    if team2 == "AUS":
+        team2 = "australia"
+    if team2 == "BAN":
+        team2 = "bangladesh"
+    if team2 == "SL":
+        team2 = "srilanka"
+    if team2 == "NZ":
+        team2 = "new zealand"
+    if team2 == "ENG":
+        team2 = "england"
+    if team2 == "ZIM":
+        team2 = "zimbabwe"
+    if team2 == "IRE":
+        team2 = "ireland"
+    if team2 == "WI":
+        team2 = "west indies"
+    if team2 == "AUS":
+        team2 = "australia"
+    if team2 == "PAK":
+        team2 = "pakistan"
+    if team2 == "AFG":
+        team2 = "afghanistan"
+    if team2 == "IND":
+        team2 = "india"
+
+    team = team.replace(" v ", " vs ")
+    score1 = score1.replace("/", " for ")
+    score1 = score1.replace(".", " point ")
+    score1 = score1.replace("(", " in ")
+
+    score2 = score2.replace("/", " for ")
+    score2 = score2.replace(".", " point ")
+    score2 = score2.replace("(", " in ")
+    score2 = score2.replace(">", " ")
+    score2 = score2.replace("Ovs", "overs ")
+    team2 = team2.replace("RSA", "southafrica")
+    team2 = team2.replace(">", "")
+
+    output = team + "    " + team1 + "    " + "scored" + "    " + score1 + "overs" + "       " + team2 + "    " + "scored" + "     " + score2
+
+    tts = gTTS(text=output, lang='en-us')
+    tts.save("hel.mp3")
+    os.system("mpg321 hel.mp3")
+    return output
 
 
 def priceof(term):
@@ -80,57 +320,71 @@ def priceof(term):
     link = tabUrl + term
     f = requests.get(link)
     new = 2
+
+    # webbrowser.open(tabUrl+term,new=new)
+    # print(f.text)
     a = f.text
     b = a.find("1vC4OE _2rQ-NK")
     c = a.find("_3wU53n")
+    p = a.find('_1vC4OE"')
+    # print(p)
     if b == -1:
-        b = a.find('1vC4OE"')
+        b = a.find('1vC4OE')
         c = a.find("_2cLu-l")
+        # print(b)
+        # print(c)
         name = ""
         for i in range(16, 100):
+
             if f.text[c + i] == '<' or f.text[c + i] == '>' or f.text[c + i] == '"':
                 break
             name = name + f.text[c + i]
+        # print(name)
         price = ""
-        for i in range(96, 120):
-            if f.text[b + i] == '<' or f.text[b + i] == '>' or f.text[b + i] == '"':
+        for i in range(18, 120):
+            if a[p + i] == '<':
                 break
-            price = price + f.text[b + i]
+
+            price = price + a[p + i]
+        # print(price)
         if price == 'refetch':
             output = "NO RESULTS FOUND FOR YOUR QUERY"
             print(output)
             tts = gTTS(text=output, lang='en-us')
             tts.save("hel.mp3")
             os.system("mpg321 hel.mp3")
+
         else:
+
             output = name + " costs " + price + " rupees"
             print(output)
+
             tts = gTTS(text=output, lang='en-us')
             tts.save("hel.mp3")
             os.system("mpg321 hel.mp3")
+
     else:
+        # print(b)
+        # print(c)
         name = ""
-        for i in range(28, 130):
-            if f.text[c + i] == '<' or f.text[c + i] == '>' or f.text[c + i] == '"':
+        for i in range(9, 130):
+            if f.text[c + i] == '<':
                 break
+
             name = name + f.text[c + i]
+
+        # print(name)
         price = ""
-        for i in range(104, 120):
-            if f.text[b + i] == '<' or f.text[b + i] == '>' or f.text[b + i] == '"':
+        for i in range(25, 120):
+            if a[b + i] == '<':
                 break
-            price = price + f.text[b + i]
-        output = "the price of " + name + " on flipkart is " + price + " rupees"
+
+            price = price + a[b + i]
+            # print(price)
+        output = name + " costs " + price + " rupees"
         print(output)
 
         tts = gTTS(text=output, lang='en-us')
         tts.save("hel.mp3")
         os.system("mpg321 hel.mp3")
-
-#check sync with github
-#check from avinash
-
-
-
-
-
-
+    return output
