@@ -1,6 +1,6 @@
-import sqlite3
+import pymysql
 
-db=sqlite3.connect("data")
+db=pymysql.connect("den1.mysql2.gear.host","alasya2","alasya2.0","alasya2")
 
 
 c=db.cursor()

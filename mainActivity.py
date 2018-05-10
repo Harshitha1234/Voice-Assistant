@@ -3,6 +3,13 @@ import speech_recognition as sr
 import random
 import PyDictionary
 from graphics import *
+import basicdb2
+import rps
+import singlebus
+import no
+import jokes
+import stories
+import trainnumber
 
 win = GraphWin("buddy", 400, 600)
 img = Image(Point(199, 300), "back2.gif")
@@ -18,13 +25,6 @@ while True:
     click=win.checkMouse()
     temp=0
     while click==None:
- #       circle=Circle(Point(200,540),30)
- #       circle.draw(win)
- #       circle.undraw()
-  #      click=win.checkMouse()
- #       circle1=Circle(Point(375,575),15)
- #       circle1.draw(win)
-#        circle1.undraw()
         click=win.checkMouse()
         if(click==None):
             continue
@@ -36,8 +36,7 @@ while True:
                 click=click
             else:
                 click=None
-#    circle.undraw()
-#    circle1.undraw()
+
     if((560<click.y<590) and (360<click.x<390)):
         img = Image(Point(199, 300), "info.gif")
         img.draw(win)
@@ -88,8 +87,10 @@ while True:
                     res = r.recognize_google(audio)
                     print("You said: " + res)
                     functionset.sayout('you better go and ask "siri". bye')
+                    opt='you better go and ask "siri". bye'
                 except:
                     functionset.sayout('you better go and ask "siri". bye')
+                    opt='you better go and ask "siri". bye'
             except:
                 functionset.sayout('I am asking you who is "siri"')
                 try:
@@ -100,6 +101,7 @@ while True:
                     res = r.recognize_google(audio)
                     print("You said: " + res)
                     functionset.sayout('who is that siri?')
+                    opt='who is that siri?'
                     try:
                         r = sr.Recognizer()
                         with sr.Microphone() as source:
@@ -108,10 +110,13 @@ while True:
                         res = r.recognize_google(audio)
                         print("You said: " + res)
                         functionset.sayout('you better go and ask "siri". bye')
+                        opt='you better go and     ask "siri". bye'
                     except:
                         functionset.sayout('you better go and ask "siri". bye')
+                        opt='you better go and     ask "siri". bye'
                 except:
                     functionset.sayout('bye!')
+                    opt='bye!'
         elif 'weather' in res or 'temperature' in res or 'climate' in res or 'how hot' in res or 'how cold' in res:
             res = functionset.genkeyw(res)
             res = res - {'temperature', 'climate', 'weather', 'hot', 'cold', 'hi', 'hello', 'here'}
@@ -154,7 +159,7 @@ while True:
             opt = 'I am bored too. Shall we play a game?'
             functionset.sayout(opt)
         elif 'what' in res and 'can' in res and 'you' in res and 'do' in res:
-            opt = 'here are the things i can do for you. i can set alarms, remainder, create a shopping list or a to-do list for you, help chat with your friend, tell stories, play music , tell you the weather conditions, search for the prices of goods on flipkart, play a game ,tell a joke, tell the news,and i can ask some riddles too'
+            opt = 'here are the things i can do for you.  create a shopping list or a to-do list for you, help chat with your friend, tell stories, play music , tell you the weather conditions, search for the prices of goods on flipkart, play a game ,tell a joke, tell the news,and i can ask some riddles too'
             functionset.sayout(opt)
         elif ('who' in res or 'why' in res) and 'made' in res and 'you' in res:
             opt = 'i was made by the alasya group as a part of their ITWS2 software project'
@@ -193,6 +198,37 @@ while True:
             functionset.sayout('palying a ramdom track')
             functionset.playrandom()
             opt='playing a random track'
+        elif('joke' in res):
+            jokes.tell_a_joke()
+            opt='What else can I do for you'
+        elif("status"in res or "Status" in res and ("Train" in res or "train" in res)):
+            trainnumber.trainno()
+            opt="Any other"
+        elif ('stories' in res or 'story' in res or 'Story' in res or 'Stories' in res):
+            stories.tell_a_story()
+            opt = 'What else can I do for you'
+        elif 'start' in res and 'chat' in res:
+            basicdb2.main()
+            opt='What else can I do for you'
+        elif 'shopping list' in res and 'add' in res:
+            res=functionset.genkeyw(res)
+            res = res - {'shopping', 'list', 'add', 'my'}
+            res = str(res)
+            functionset.add_to_shopping_list(res)
+            opt = 'i have added '+res+'  to your shopping list '
+            functionset.sayout(opt)
+        elif 'what' in res and 'in' in res and 'shopping list' in res:
+            opt=functionset.read_shopping_list()
+        elif 'play' in res and ('rock' in res or 'Rock' in res) and ('paper' in res or 'Paper' in res) and  ('scissors' in res or 'Scissors' in res) :
+            rps.rockpaperscissors()
+            opt='Wanna try anything else'
+        elif 'play' in res and ('bus' in res or 'Bus' in res) or ('Buzz' in res or 'buzz' in res):
+            singlebus.busbuzz()
+            opt='Wanna try anything else'
+        elif 'play' in res and ('number' in res or 'Number' in res):
+            no.numbergame()
+            opt='Wanna try anything else'
+
         elif ('videos' in res and 'show' in res) or (('show' in res or 'open' in res or 'play' in res or 'search for' in res) and 'YouTube' in res):
             res = functionset.genkeyw(res)
             res = res - {'YouTube','me','video','videos','in','on','of','some','about','open','play'}
@@ -240,8 +276,6 @@ while True:
         for i in range(0, 10):
             if(len(p[i])>30):
                 q=p[i].split(' ')
-                #print(q)
-                #print(len(q))
                 r=["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""]
                 for j in range(len(q)-1,-1,-1):
                     r[int(j/4)]=q[j]+" "+r[int(j/4)]
@@ -264,7 +298,4 @@ while True:
             inp.draw(win)
             y = y - 50
 
-
-
 win.getMouse()
-

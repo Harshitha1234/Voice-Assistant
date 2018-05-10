@@ -36,6 +36,7 @@ def recognize1():
   return output
 
 def main():
+ db = pymysql.connect("den1.mysql2.gear.host", "alasya2", "alasya2.0", "alasya2")
  temp1=1
  temp2=1
  temp3=1
@@ -97,10 +98,8 @@ def main():
       break
    if(temp1==1):
     talk1("Username does not exist")
-    time.sleep(2)
    elif(temp1==0 and temp3==1):
     talk1("Password does not match")
-    time.sleep(2)
  temp1=1
  while (temp1 == 1):
   talk("With whom you want to chat")
@@ -173,15 +172,5 @@ def main():
   if(message=="hey buddy stop"):
    talk("Bye")
    break
-main()
+
 db.close()
-
-
-
-
-
-
-
-
-
-
