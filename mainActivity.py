@@ -69,6 +69,9 @@ while True:
             functionset.sayout('sorry. I did not get you')
             exception='sorry. I did not get you'
             res=''
+
+        ######## RECOGNITION ALGORITHM STARTS HERE
+        
         if 'hey' in res and 'Siri' in res:
             functionset.sayout('who is siri?')
             try:
